@@ -5,6 +5,13 @@ All notable changes are recorded here. This project follows Semantic Versioning.
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-09-17
+
+### Fixed
+
+- Use the canonical Apache 2.0 repository license text so hosting providers identify it correctly.
+- No API, encoding, wire-format, or assembly-version changes.
+
 ## [0.1.0] - 2026-09-16
 
 ### Added

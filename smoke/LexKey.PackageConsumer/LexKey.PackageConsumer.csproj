@@ -5,7 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <LexKeySmokePackageVersion Condition="'$(LexKeySmokePackageVersion)' == ''">0.1.0</LexKeySmokePackageVersion>
+    <LexKeySmokePackageVersion Condition="'$(LexKeySmokePackageVersion)' == ''">0.1.1</LexKeySmokePackageVersion>
     <RestorePackagesPath>$(MSBuildThisFileDirectory)../../artifacts/consumer-package-cache</RestorePackagesPath>
     <TrimmerSingleWarn>false</TrimmerSingleWarn>
     <ILLinkTreatWarningsAsErrors>true</ILLinkTreatWarningsAsErrors>

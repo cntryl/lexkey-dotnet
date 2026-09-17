@@ -10,7 +10,7 @@ UUIDs, time values, composites, and storage ranges.
 The package is published to Cntryl's GitHub Packages feed:
 
 ```xml
-<PackageReference Include="Cntryl.LexKey" Version="0.1.0" />
+<PackageReference Include="Cntryl.LexKey" Version="0.1.1" />
 ```
 
 The package namespace is `Cntryl.Keys` so the primary type remains the unambiguous
