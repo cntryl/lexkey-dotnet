@@ -76,6 +76,21 @@ public sealed class RangeAndValueTests
     }
 
     [Fact]
+    public void ShouldExposeReadOnlyMemoryWithoutCopyGivenImmutableKey()
+    {
+        // Arrange
+        var key = LexKey.FromBytes([1, 2, 3]);
+
+        // Act
+        var first = key.AsMemory();
+        var second = key.AsMemory();
+
+        // Assert
+        Assert.True(first.Equals(second));
+        Assert.Equal(new byte[] { 1, 2, 3 }, first.ToArray());
+    }
+
+    [Fact]
     public void ShouldCloneCallerOwnedBytesGivenCompositePart()
     {
         // Arrange

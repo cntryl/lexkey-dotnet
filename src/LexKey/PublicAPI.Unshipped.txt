@@ -1,4 +1,5 @@
 #nullable enable
+Cntryl.Keys.LexKey.AsMemory() -> System.ReadOnlyMemory<byte>
 Cntryl.Keys.Encoder
 Cntryl.Keys.Encoder.AsSpan() -> System.ReadOnlySpan<byte>
 Cntryl.Keys.Encoder.Clear() -> void
