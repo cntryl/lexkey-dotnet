@@ -44,7 +44,7 @@ jobs:
       - name: Restore packed consumer
         env:
           NUGET_PACKAGES: ${{ runner.temp }}/lexkey-packages
-        run: dotnet restore smoke/LexKey.PackageConsumer/LexKey.PackageConsumer.csproj -r linux-x64 -p:LexKeySmokePackageVersion="$LEXKEY_SMOKE_PACKAGE_VERSION"
+        run: dotnet restore smoke/LexKey.PackageConsumer/LexKey.PackageConsumer.csproj -r linux-x64 -p:PublishAot=true -p:LexKeySmokePackageVersion="$LEXKEY_SMOKE_PACKAGE_VERSION"
       - name: Publish packed NativeAOT consumer
         env:
           NUGET_PACKAGES: ${{ runner.temp }}/lexkey-packages
