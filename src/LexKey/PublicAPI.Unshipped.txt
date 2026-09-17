@@ -1,0 +1,116 @@
+#nullable enable
+Cntryl.Keys.Encoder
+Cntryl.Keys.Encoder.AsSpan() -> System.ReadOnlySpan<byte>
+Cntryl.Keys.Encoder.Clear() -> void
+Cntryl.Keys.Encoder.EncodeBoolean(bool value) -> int
+Cntryl.Keys.Encoder.EncodeBytes(System.ReadOnlySpan<byte> value) -> int
+Cntryl.Keys.Encoder.EncodeComposite(params System.ReadOnlySpan<Cntryl.Keys.LexKeyPart> parts) -> int
+Cntryl.Keys.Encoder.EncodeDouble(double value) -> int
+Cntryl.Keys.Encoder.EncodeGuid(System.Guid value) -> int
+Cntryl.Keys.Encoder.EncodeInt16(short value) -> int
+Cntryl.Keys.Encoder.EncodeInt32(int value) -> int
+Cntryl.Keys.Encoder.EncodeInt64(long value) -> int
+Cntryl.Keys.Encoder.EncodeInt8(sbyte value) -> int
+Cntryl.Keys.Encoder.Encoder(int capacity = 0) -> void
+Cntryl.Keys.Encoder.EncodeSingle(float value) -> int
+Cntryl.Keys.Encoder.EncodeString(string! value) -> int
+Cntryl.Keys.Encoder.EncodeUInt16(ushort value) -> int
+Cntryl.Keys.Encoder.EncodeUInt32(uint value) -> int
+Cntryl.Keys.Encoder.EncodeUInt64(ulong value) -> int
+Cntryl.Keys.Encoder.EncodeUInt8(byte value) -> int
+Cntryl.Keys.Encoder.EncodeUnixNanoseconds(long nanoseconds) -> int
+Cntryl.Keys.Encoder.IsEmpty.get -> bool
+Cntryl.Keys.Encoder.Length.get -> int
+Cntryl.Keys.Encoder.PushByte(byte value) -> void
+Cntryl.Keys.Encoder.PushEndMarker() -> void
+Cntryl.Keys.Encoder.PushSeparator() -> void
+Cntryl.Keys.Encoder.ToArray() -> byte[]!
+Cntryl.Keys.Encoder.ToLexKey() -> Cntryl.Keys.LexKey!
+Cntryl.Keys.ILexKeyEncodable
+Cntryl.Keys.ILexKeyEncodable.Encode(System.Span<byte> destination) -> void
+Cntryl.Keys.ILexKeyEncodable.EncodedLength.get -> int
+Cntryl.Keys.LexKey
+Cntryl.Keys.LexKey.AsSpan() -> System.ReadOnlySpan<byte>
+Cntryl.Keys.LexKey.CompareTo(Cntryl.Keys.LexKey? other) -> int
+Cntryl.Keys.LexKey.Equals(Cntryl.Keys.LexKey? other) -> bool
+Cntryl.Keys.LexKey.IsEmpty.get -> bool
+Cntryl.Keys.LexKey.Length.get -> int
+Cntryl.Keys.LexKey.ToArray() -> byte[]!
+Cntryl.Keys.LexKey.ToHexString() -> string!
+Cntryl.Keys.LexKeyPart
+Cntryl.Keys.LexKeyPart.LexKeyPart() -> void
+const Cntryl.Keys.LexKey.EndMarker = 255 -> byte
+const Cntryl.Keys.LexKey.Separator = 0 -> byte
+override Cntryl.Keys.LexKey.Equals(object? obj) -> bool
+override Cntryl.Keys.LexKey.GetHashCode() -> int
+override Cntryl.Keys.LexKey.ToString() -> string!
+static Cntryl.Keys.LexKey.Empty.get -> Cntryl.Keys.LexKey!
+static Cntryl.Keys.LexKey.EncodeBoolean(bool value) -> Cntryl.Keys.LexKey!
+static Cntryl.Keys.LexKey.EncodeBytes(System.ReadOnlySpan<byte> value) -> Cntryl.Keys.LexKey!
+static Cntryl.Keys.LexKey.EncodeComposite(params System.ReadOnlySpan<Cntryl.Keys.LexKeyPart> parts) -> Cntryl.Keys.LexKey!
+static Cntryl.Keys.LexKey.EncodeCompositeBytes(params System.ReadOnlySpan<System.ReadOnlyMemory<byte>> parts) -> Cntryl.Keys.LexKey!
+static Cntryl.Keys.LexKey.EncodeDouble(double value) -> Cntryl.Keys.LexKey!
+static Cntryl.Keys.LexKey.EncodeEndMarker() -> Cntryl.Keys.LexKey!
+static Cntryl.Keys.LexKey.EncodeFirst(params System.ReadOnlySpan<Cntryl.Keys.LexKeyPart> parts) -> Cntryl.Keys.LexKey!
+static Cntryl.Keys.LexKey.EncodeGuid(System.Guid value) -> Cntryl.Keys.LexKey!
+static Cntryl.Keys.LexKey.EncodeInt16(short value) -> Cntryl.Keys.LexKey!
+static Cntryl.Keys.LexKey.EncodeInt32(int value) -> Cntryl.Keys.LexKey!
+static Cntryl.Keys.LexKey.EncodeInt64(long value) -> Cntryl.Keys.LexKey!
+static Cntryl.Keys.LexKey.EncodeInt8(sbyte value) -> Cntryl.Keys.LexKey!
+static Cntryl.Keys.LexKey.EncodeLast(params System.ReadOnlySpan<Cntryl.Keys.LexKeyPart> parts) -> Cntryl.Keys.LexKey!
+static Cntryl.Keys.LexKey.EncodeNil() -> Cntryl.Keys.LexKey!
+static Cntryl.Keys.LexKey.EncodeRangeBounds(System.ReadOnlySpan<byte> partition) -> (Cntryl.Keys.LexKey! Lower, Cntryl.Keys.LexKey! Upper)
+static Cntryl.Keys.LexKey.EncodeRangeLower(System.ReadOnlySpan<byte> partition, System.ReadOnlyMemory<byte>? rowLower = null) -> Cntryl.Keys.LexKey!
+static Cntryl.Keys.LexKey.EncodeRangeUpper(System.ReadOnlySpan<byte> partition, System.ReadOnlyMemory<byte>? rowUpper = null) -> Cntryl.Keys.LexKey!
+static Cntryl.Keys.LexKey.EncodeSingle(float value) -> Cntryl.Keys.LexKey!
+static Cntryl.Keys.LexKey.EncodeString(string! value) -> Cntryl.Keys.LexKey!
+static Cntryl.Keys.LexKey.EncodeUInt16(ushort value) -> Cntryl.Keys.LexKey!
+static Cntryl.Keys.LexKey.EncodeUInt32(uint value) -> Cntryl.Keys.LexKey!
+static Cntryl.Keys.LexKey.EncodeUInt64(ulong value) -> Cntryl.Keys.LexKey!
+static Cntryl.Keys.LexKey.EncodeUInt8(byte value) -> Cntryl.Keys.LexKey!
+static Cntryl.Keys.LexKey.EncodeUnixNanoseconds(long nanoseconds) -> Cntryl.Keys.LexKey!
+static Cntryl.Keys.LexKey.FromBytes(System.ReadOnlySpan<byte> bytes) -> Cntryl.Keys.LexKey!
+static Cntryl.Keys.LexKey.operator !=(Cntryl.Keys.LexKey? left, Cntryl.Keys.LexKey? right) -> bool
+static Cntryl.Keys.LexKey.operator <(Cntryl.Keys.LexKey? left, Cntryl.Keys.LexKey? right) -> bool
+static Cntryl.Keys.LexKey.operator <=(Cntryl.Keys.LexKey? left, Cntryl.Keys.LexKey? right) -> bool
+static Cntryl.Keys.LexKey.operator ==(Cntryl.Keys.LexKey? left, Cntryl.Keys.LexKey? right) -> bool
+static Cntryl.Keys.LexKey.operator >(Cntryl.Keys.LexKey? left, Cntryl.Keys.LexKey? right) -> bool
+static Cntryl.Keys.LexKey.operator >=(Cntryl.Keys.LexKey? left, Cntryl.Keys.LexKey? right) -> bool
+static Cntryl.Keys.LexKey.PrefixEnd(System.ReadOnlySpan<byte> prefix) -> byte[]!
+static Cntryl.Keys.LexKey.PrefixRangeBounds(System.ReadOnlySpan<byte> prefix) -> (byte[]! Lower, byte[]! Upper)
+static Cntryl.Keys.LexKey.PrefixScanBounds(System.ReadOnlySpan<byte> prefix) -> (byte[]! Lower, byte[]? Upper)
+static Cntryl.Keys.LexKey.PrefixSuccessor(System.ReadOnlySpan<byte> prefix) -> byte[]?
+static Cntryl.Keys.LexKey.RangeBounds(System.ReadOnlySpan<byte> prefix) -> (byte[]! Lower, byte[]! Upper)
+static Cntryl.Keys.LexKey.RangeUpper(System.ReadOnlySpan<byte> prefix) -> byte[]!
+static Cntryl.Keys.LexKeyPart.From(Cntryl.Keys.ILexKeyEncodable! value) -> Cntryl.Keys.LexKeyPart
+static Cntryl.Keys.LexKeyPart.FromBoolean(bool value) -> Cntryl.Keys.LexKeyPart
+static Cntryl.Keys.LexKeyPart.FromByte(byte value) -> Cntryl.Keys.LexKeyPart
+static Cntryl.Keys.LexKeyPart.FromByteArray(byte[]! value) -> Cntryl.Keys.LexKeyPart
+static Cntryl.Keys.LexKeyPart.FromBytes(System.ReadOnlySpan<byte> value) -> Cntryl.Keys.LexKeyPart
+static Cntryl.Keys.LexKeyPart.FromDouble(double value) -> Cntryl.Keys.LexKeyPart
+static Cntryl.Keys.LexKeyPart.FromGuid(System.Guid value) -> Cntryl.Keys.LexKeyPart
+static Cntryl.Keys.LexKeyPart.FromInt16(short value) -> Cntryl.Keys.LexKeyPart
+static Cntryl.Keys.LexKeyPart.FromInt32(int value) -> Cntryl.Keys.LexKeyPart
+static Cntryl.Keys.LexKeyPart.FromInt64(long value) -> Cntryl.Keys.LexKeyPart
+static Cntryl.Keys.LexKeyPart.FromLexKey(Cntryl.Keys.LexKey! value) -> Cntryl.Keys.LexKeyPart
+static Cntryl.Keys.LexKeyPart.FromSByte(sbyte value) -> Cntryl.Keys.LexKeyPart
+static Cntryl.Keys.LexKeyPart.FromSingle(float value) -> Cntryl.Keys.LexKeyPart
+static Cntryl.Keys.LexKeyPart.FromString(string! value) -> Cntryl.Keys.LexKeyPart
+static Cntryl.Keys.LexKeyPart.FromUInt16(ushort value) -> Cntryl.Keys.LexKeyPart
+static Cntryl.Keys.LexKeyPart.FromUInt32(uint value) -> Cntryl.Keys.LexKeyPart
+static Cntryl.Keys.LexKeyPart.FromUInt64(ulong value) -> Cntryl.Keys.LexKeyPart
+static Cntryl.Keys.LexKeyPart.implicit operator Cntryl.Keys.LexKeyPart(bool value) -> Cntryl.Keys.LexKeyPart
+static Cntryl.Keys.LexKeyPart.implicit operator Cntryl.Keys.LexKeyPart(byte value) -> Cntryl.Keys.LexKeyPart
+static Cntryl.Keys.LexKeyPart.implicit operator Cntryl.Keys.LexKeyPart(byte[]! value) -> Cntryl.Keys.LexKeyPart
+static Cntryl.Keys.LexKeyPart.implicit operator Cntryl.Keys.LexKeyPart(Cntryl.Keys.LexKey! value) -> Cntryl.Keys.LexKeyPart
+static Cntryl.Keys.LexKeyPart.implicit operator Cntryl.Keys.LexKeyPart(double value) -> Cntryl.Keys.LexKeyPart
+static Cntryl.Keys.LexKeyPart.implicit operator Cntryl.Keys.LexKeyPart(float value) -> Cntryl.Keys.LexKeyPart
+static Cntryl.Keys.LexKeyPart.implicit operator Cntryl.Keys.LexKeyPart(int value) -> Cntryl.Keys.LexKeyPart
+static Cntryl.Keys.LexKeyPart.implicit operator Cntryl.Keys.LexKeyPart(long value) -> Cntryl.Keys.LexKeyPart
+static Cntryl.Keys.LexKeyPart.implicit operator Cntryl.Keys.LexKeyPart(sbyte value) -> Cntryl.Keys.LexKeyPart
+static Cntryl.Keys.LexKeyPart.implicit operator Cntryl.Keys.LexKeyPart(short value) -> Cntryl.Keys.LexKeyPart
+static Cntryl.Keys.LexKeyPart.implicit operator Cntryl.Keys.LexKeyPart(string! value) -> Cntryl.Keys.LexKeyPart
+static Cntryl.Keys.LexKeyPart.implicit operator Cntryl.Keys.LexKeyPart(System.Guid value) -> Cntryl.Keys.LexKeyPart
+static Cntryl.Keys.LexKeyPart.implicit operator Cntryl.Keys.LexKeyPart(uint value) -> Cntryl.Keys.LexKeyPart
+static Cntryl.Keys.LexKeyPart.implicit operator Cntryl.Keys.LexKeyPart(ulong value) -> Cntryl.Keys.LexKeyPart
+static Cntryl.Keys.LexKeyPart.implicit operator Cntryl.Keys.LexKeyPart(ushort value) -> Cntryl.Keys.LexKeyPart

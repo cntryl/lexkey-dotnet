@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/LexKey/LexKey.csproj" />
+  </Folder>
+  <Folder Name="/test/">
+    <Project Path="test/LexKey.Tests/LexKey.Tests.csproj" />
+  </Folder>
+  <Folder Name="/bench/">
+    <Project Path="bench/LexKey.Benchmarks/LexKey.Benchmarks.csproj" />
+  </Folder>
+</Solution>

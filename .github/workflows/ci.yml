@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  LEXKEY_SMOKE_PACKAGE_VERSION: 0.1.0-ci.${{ github.run_id }}.${{ github.run_attempt }}
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-dotnet@v6
+        with:
+          global-json-file: global.json
+          cache: true
+          cache-dependency-path: '**/packages.lock.json'
+      - name: Restore locked packages
+        run: dotnet restore LexKey.slnx --locked-mode
+      - name: Check formatting
+        run: dotnet format LexKey.slnx --verify-no-changes --no-restore
+      - name: Build
+        run: dotnet build LexKey.slnx -c Release --no-restore
+      - name: Test
+        run: dotnet test LexKey.slnx -c Release --no-build
+      - name: Execute benchmark smoke
+        run: dotnet run --project bench/LexKey.Benchmarks/LexKey.Benchmarks.csproj -c Release --no-build -- --filter '*' --job Dry
+      - name: Pack
+        run: dotnet pack LexKey.slnx -c Release --no-build --no-restore -p:PackageVersion="$LEXKEY_SMOKE_PACKAGE_VERSION" --output artifacts/packages
+      - name: Restore packed consumer
+        env:
+          NUGET_PACKAGES: ${{ runner.temp }}/lexkey-packages
+        run: dotnet restore smoke/LexKey.PackageConsumer/LexKey.PackageConsumer.csproj -r linux-x64 -p:LexKeySmokePackageVersion="$LEXKEY_SMOKE_PACKAGE_VERSION"
+      - name: Publish packed NativeAOT consumer
+        env:
+          NUGET_PACKAGES: ${{ runner.temp }}/lexkey-packages
+        run: dotnet publish smoke/LexKey.PackageConsumer/LexKey.PackageConsumer.csproj -c Release -r linux-x64 -p:PublishAot=true --no-restore -p:LexKeySmokePackageVersion="$LEXKEY_SMOKE_PACKAGE_VERSION" --output artifacts/native-aot
+      - name: Run packed NativeAOT consumer
+        run: artifacts/native-aot/LexKey.PackageConsumer
