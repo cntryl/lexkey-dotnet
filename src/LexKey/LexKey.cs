@@ -33,6 +33,9 @@ public sealed class LexKey : IComparable<LexKey>, IEquatable<LexKey>, ILexKeyEnc
     /// <summary>Returns a read-only view of the encoded bytes.</summary>
     public ReadOnlySpan<byte> AsSpan() => _bytes;
 
+    /// <summary>Returns an allocation-free read-only memory view of the encoded bytes.</summary>
+    public ReadOnlyMemory<byte> AsMemory() => _bytes;
+
     /// <summary>Returns an owned copy of the encoded bytes.</summary>
     public byte[] ToArray() => _bytes.ToArray();
 

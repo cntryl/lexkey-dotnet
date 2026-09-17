@@ -10,7 +10,7 @@ UUIDs, time values, composites, and storage ranges.
 The package is published to Cntryl's GitHub Packages feed:
 
 ```xml
-<PackageReference Include="Cntryl.LexKey" Version="0.1.1" />
+<PackageReference Include="Cntryl.LexKey" Version="0.1.2" />
 ```
 
 The package namespace is `Cntryl.Keys` so the primary type remains the unambiguous
@@ -45,6 +45,8 @@ The composite convenience API uses typed, stack-friendly descriptors and allocat
 the immutable result for strings, numbers, UUIDs, existing keys, and custom encoders.
 The reusable encoder can write without managed allocations after its buffer reaches capacity;
 materializing a `LexKey` or array intentionally creates an owned copy.
+Use `AsMemory()` to pass an encoded key to memory-oriented storage APIs such as Fitz without
+copying; use `ToArray()` only when the caller needs mutable ownership.
 
 ## Range helpers
 

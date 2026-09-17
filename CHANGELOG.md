@@ -5,6 +5,12 @@ All notable changes are recorded here. This project follows Semantic Versioning.
 
 ## [Unreleased]
 
+## [0.1.2] - 2026-09-17
+
+### Added
+
+- Add `LexKey.AsMemory()` for allocation-free integration with memory-oriented storage APIs.
+
 ## [0.1.1] - 2026-09-17
 
 ### Fixed
