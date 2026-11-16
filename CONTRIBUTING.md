@@ -14,3 +14,8 @@ dotnet test LexKey.slnx -c Release --no-build
 
 Pack and run the external consumer for public-surface changes. Keep `AssemblyVersion` at
 `1.0.0.0`; advance `PackageVersion` only. Breaking encoding changes require a major version.
+## Explain your use case
+
+In your issue or pull request, explain how you use or plan to use this project, what problem you encountered, and how the proposed change helps.
+
+Follow this repository’s setup and validation instructions, and report relevant checks you ran.
