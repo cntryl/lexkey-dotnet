@@ -1,7 +1,7 @@
 # LexKey .NET
 
 LexKey turns typed values into lexicographically sortable byte keys for ordered
-storage and range scans. It implements the same encoding as
+storage and range scans on .NET 11. It implements the same encoding as
 [LexKey for Rust](https://github.com/cntryl/lexkey-rs), so the two implementations
 produce the same bytes for the same typed values.
 
