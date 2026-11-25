@@ -1,75 +1,60 @@
-# lexkey-dotnet
+# LexKey .NET
 
-`lexkey-dotnet` is the .NET implementation of the language-independent LexKey encoding
-specification used by [`lexkey-rs`](https://github.com/cntryl/lexkey-rs). It produces
-byte-for-byte compatible, lexicographically sortable keys for typed numbers, strings,
-UUIDs, time values, composites, and storage ranges.
+LexKey turns typed values into lexicographically sortable byte keys for ordered
+storage and range scans. It implements the same encoding as
+[LexKey for Rust](https://github.com/cntryl/lexkey-rs), so the two implementations
+produce the same bytes for the same typed values.
 
 ## Install
 
-The package is published to Cntryl's GitHub Packages feed:
+The package is available from the Cntryl GitHub Packages feed. Configure
+[GitHub Packages authentication](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-nuget-registry)
+with a classic personal access token that has `read:packages`.
 
-```xml
-<PackageReference Include="Cntryl.LexKey" Version="0.1.2" />
+```sh
+dotnet nuget add source https://nuget.pkg.github.com/cntryl/index.json --name cntryl
+dotnet add package Cntryl.LexKey
 ```
 
-The package namespace is `Cntryl.Keys` so the primary type remains the unambiguous
-`LexKey` rather than colliding with its namespace.
-
 ## Quick start
+
+Encode a partition, an individual key, and the bounds for scanning that partition.
 
 ```csharp
 using Cntryl.Keys;
 
-var userKey = LexKey.EncodeComposite("tenant", "user", userId);
-var numeric = LexKey.EncodeInt64(42);
-var (lower, upper) = LexKey.EncodeRangeBounds(userKey.AsSpan());
+var partition = LexKey.EncodeComposite("tenant-1", "user");
+var key = LexKey.EncodeComposite("tenant-1", "user", 42L);
+var (lower, upper) = LexKey.EncodeRangeBounds(partition.AsSpan());
 ```
 
-Typed numeric widths are preserved: `byte`, `ushort`, `uint`, and `ulong` encode to
-1, 2, 4, and 8 bytes respectively, and signed/floating-point types behave likewise.
-Normalize values to a common explicit width when a schema needs cross-width ordering.
-
-For hot paths, reuse an `Encoder`:
-
-```csharp
-var encoder = new Encoder(64);
-encoder.EncodeString("tenant");
-encoder.PushSeparator();
-encoder.EncodeInt64(42);
-var key = encoder.ToLexKey();
-encoder.Clear();
-```
-
-The composite convenience API uses typed, stack-friendly descriptors and allocates only
-the immutable result for strings, numbers, UUIDs, existing keys, and custom encoders.
-The reusable encoder can write without managed allocations after its buffer reaches capacity;
-materializing a `LexKey` or array intentionally creates an owned copy.
-Use `AsMemory()` to pass an encoded key to memory-oriented storage APIs such as Fitz without
-copying; use `ToArray()` only when the caller needs mutable ownership.
+Numeric widths are part of the encoding. Pick a consistent width for each field
+that needs a predictable sort order. Pass `key.AsMemory()` to a storage API when
+it accepts read-only memory, or use `ToArray()` when the caller needs an owned
+mutable copy. For repeated writes, reuse an `Encoder` and call `Clear()` between
+keys.
 
 ## Range helpers
 
-- `PrefixEnd(P)` returns structured `P || 0xFF`.
-- `PrefixSuccessor(P)` returns the finite upper bound for arbitrary raw prefixes by
-  incrementing the final non-`0xFF` byte and truncating.
-- `PrefixScanBounds(P)` returns `(P, PrefixSuccessor(P))`.
-- `PrefixRangeBounds(P)` returns structured `(P || 0x00, P || 0xFF)`.
-- `EncodeRangeLower` and `EncodeRangeUpper` preserve the Rust distinction between a
-  missing row bound and an explicitly empty row bound.
+| Task | API |
+| --- | --- |
+| Scan an arbitrary byte prefix | `PrefixScanBounds` returns the prefix and its finite successor if one exists. |
+| Scan a structured partition | `EncodeRangeBounds` returns `LexKey` bounds. `PrefixRangeBounds` returns structured byte bounds. |
+| Encode either side of a bounded row range | `EncodeRangeLower` and `EncodeRangeUpper` distinguish an absent bound from an explicitly empty row. |
 
-These operations are intentionally separate. `P || 0xFF` is not a safe upper bound for
-arbitrary raw prefixes whose children may begin with `0xFF`.
+See the [encoding specification](docs/SPEC.md) for byte layout, ordering, and
+the distinction between structured ranges and raw prefixes.
 
-## Compatibility and quality gates
+## Development
 
-- exact portable byte vectors and ordering tests
-- immutable input/output ownership
-- warnings-as-errors and full .NET analyzers
-- XML documentation for every shipped public member
-- locked restores and deterministic SourceLink packages
-- external consumer restored only from freshly packed artifacts
-- whole-assembly trimming and NativeAOT validation
+Use the SDK specified in [global.json](global.json).
 
-`AssemblyVersion` remains `1.0.0.0`; package versions advance independently. The project
-is licensed under Apache-2.0.
+```sh
+dotnet restore LexKey.slnx --locked-mode
+dotnet test LexKey.slnx -c Release --no-restore
+```
+
+See [Contributing](CONTRIBUTING.md) for compatibility checks and the
+[changelog](CHANGELOG.md) for release history.
+
+LexKey .NET is licensed under [Apache 2.0](LICENSE).
