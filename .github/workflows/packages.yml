@@ -1,4 +1,4 @@
-name: Publish
+name: Packages
 
 on:
   workflow_dispatch:
@@ -19,7 +19,6 @@ jobs:
     name: Pack and publish package
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-    environment: nuget.org
     timeout-minutes: 15
     env:
       NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -36,6 +35,13 @@ jobs:
         run: echo "package-version=$(dotnet msbuild src/LexKey/LexKey.csproj -getProperty:PackageVersion -nologo)" >> "$GITHUB_OUTPUT"
       - name: Pack package
         run: dotnet pack LexKey.slnx -c Release --output artifacts/packages -p:PackageVersion="${{ steps.version.outputs.package-version }}"
+      - name: Upload release packages
+        uses: actions/upload-artifact@v7.0.2
+        with:
+          name: release-packages-${{ github.run_attempt }}
+          path: artifacts/packages/*.nupkg
+          if-no-files-found: error
+
       - name: Publish package
         run: dotnet nuget push "artifacts/packages/*.nupkg" --api-key "$NUGET_AUTH_TOKEN" --source "$PACKAGE_SOURCE" --skip-duplicate
       - name: Tag release
