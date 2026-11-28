@@ -39,7 +39,9 @@ jobs:
         uses: actions/upload-artifact@v7.0.2
         with:
           name: release-packages-${{ github.run_attempt }}
-          path: artifacts/packages/*.nupkg
+          path: |
+            artifacts/packages/*.nupkg
+            artifacts/packages/*.snupkg
           if-no-files-found: error
 
       - name: Publish package
